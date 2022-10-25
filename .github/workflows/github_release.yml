@@ -14,7 +14,7 @@ jobs:
         run: |
           tag=$(echo ${{ github.ref }} | sed 's/refs\/tags\///')
           echo "tag $tag"
-          echo "::set-output name=version_tag::${tag}"
+          echo "version_tag=${tag}" >> $GITHUB_OUTPUT
 
   build_and_deploy_docker_image_stg:
     needs: [ extract_tag ]
