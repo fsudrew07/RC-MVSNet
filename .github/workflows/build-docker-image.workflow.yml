@@ -15,10 +15,6 @@ jobs:
   build-rc-mvsnet:
     name: Build RC-MVSnet
     runs-on: ubuntu-latest
-    outputs:
-      ref_name: ${{steps.short_names.outputs.ref_name}}
-      head_sha: ${{steps.short_names.outputs.head_sha}}
-      digest: ${{ steps.docker_build.outputs.digest }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -32,19 +28,6 @@ jobs:
           registry: gcr.io
           username: _json_key
           password: ${{ secrets.GCP_SA_KEY }}
-      - name: Generate Short Names
-        shell: bash
-        run: |
-          if [[ ! -z "$GITHUB_HEAD_REF" ]]
-          then
-            sha="${{ github.event.pull_request.head.sha }}"
-            echo "ref_name=$(echo ${GITHUB_HEAD_REF##*/})" >> $GITHUB_OUTPUT
-            echo "head_sha=${sha}" >> $GITHUB_OUTPUT
-          else
-            echo "ref_name=$(echo ${GITHUB_HEAD_REF##*/})" >> $GITHUB_OUTPUT
-            echo "head_sha=${GITHUB_SHA}" >> $GITHUB_OUTPUT
-          fi
-        id: short_names
       - name: Build
         uses: docker/build-push-action@v3
         with:
@@ -54,4 +37,3 @@ jobs:
           tags: |
             gcr.io/${{ secrets.GCP_PROJECT }}/rc-mvsnet:latest
             gcr.io/${{ secrets.GCP_PROJECT }}/rc-mvsnet:${{ inputs.tag }}
-            gcr.io/${{ secrets.GCP_PROJECT }}/rc-mvsnet:${{steps.short_names.outputs.head_sha}}

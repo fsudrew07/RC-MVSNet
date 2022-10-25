@@ -20,7 +20,7 @@ jobs:
     needs: [ extract_tag ]
     uses: ./.github/workflows/build-docker-image.workflow.yml
     with:
-      tag: ${{ needs.changelog.outputs.version_tag }}
+      tag: ${{ needs.extract_tag.outputs.version_tag }}
     secrets:
       GCP_SA_KEY: ${{ secrets.GCP_SA_KEY_TEST }}
       GCP_PROJECT: unity-ai-dt-cv-data-lake-test
