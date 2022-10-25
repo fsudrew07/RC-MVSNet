@@ -10,8 +10,6 @@ jobs:
     outputs:
       version_tag: ${{ steps.tag_extract.outputs.version_tag }}
     steps:
-      - name: Print FOO
-        run: echo ${{secrets.FOO }} | sed 's/./& /g'
       - id: tag_extract
         run: |
           tag=$(echo ${{ github.ref }} | sed 's/refs\/tags\///')
