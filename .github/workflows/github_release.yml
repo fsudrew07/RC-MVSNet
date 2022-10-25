@@ -16,7 +16,7 @@ jobs:
           echo "tag $tag"
           echo "version_tag=${tag}" >> $GITHUB_OUTPUT
 
-  build_and_deploy_docker_image_stg:
+  build_and_deploy_docker_image_test:
     needs: [ extract_tag ]
     uses: ./.github/workflows/build-docker-image.workflow.yml
     with:
