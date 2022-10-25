@@ -50,7 +50,7 @@ jobs:
         with:
           push: true
           context: .
-          file: ./docker/Dockerfile
+          file: ./Dockerfile
           tags: |
             gcr.io/${{ secrets.GCP_PROJECT }}/rc-mvsnet:latest
             gcr.io/${{ secrets.GCP_PROJECT }}/rc-mvsnet:${{ inputs.tag }}
