@@ -140,7 +140,7 @@ class MVSDataset(Dataset):
 
         for i, vid in enumerate(view_ids):
             img_filename = os.path.join(self.datapath, self.split, scan, f'images/{vid:08d}.jpg')
-            proj_mat_filename = os.path.join(self.datapath, self.split, scan, f'cams_1/{vid:08d}_cam.txt')
+            proj_mat_filename = os.path.join(self.datapath, self.split, scan, f'cams/{vid:08d}_cam.txt')
 
             img = self.read_img(img_filename)
             # img = self.read_img_seg(img_filename)
