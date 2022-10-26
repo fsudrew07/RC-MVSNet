@@ -595,12 +595,12 @@ def train_begin(rank,args):
         test_sampler = torch.utils.data.DistributedSampler(test_dataset, num_replicas=args.world_size,
                                                            rank=rank)
 
-        TrainImgLoader = DataLoader(train_dataset, args.batch_size, sampler=train_sampler, num_workers=1,
+        TrainImgLoader = DataLoader(train_dataset, args.batch_size, sampler=train_sampler, num_workers=0,
                                     drop_last=True)
-        TestImgLoader = DataLoader(test_dataset, args.batch_size, sampler=test_sampler, num_workers=1, drop_last=False)
+        TestImgLoader = DataLoader(test_dataset, args.batch_size, sampler=test_sampler, num_workers=0, drop_last=False)
     else:
-        TrainImgLoader = DataLoader(train_dataset, args.batch_size, shuffle=True, num_workers=1, drop_last=True)
-        TestImgLoader = DataLoader(test_dataset, args.batch_size, shuffle=False, num_workers=1, drop_last=False)
+        TrainImgLoader = DataLoader(train_dataset, args.batch_size, shuffle=True, num_workers=0, drop_last=True)
+        TestImgLoader = DataLoader(test_dataset, args.batch_size, shuffle=False, num_workers=0, drop_last=False)
 
     if args.mode == "train":
         train(model,model_nerf, model_loss, aug_loss, test_model_loss, optimizer, TrainImgLoader, TestImgLoader, start_epoch, args)
