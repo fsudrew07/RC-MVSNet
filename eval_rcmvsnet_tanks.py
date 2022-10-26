@@ -159,7 +159,7 @@ def save_depth(img_wh=(1920, 1056)):
     # dataset, dataloader
     MVSDataset = find_dataset_def(args.dataset)
     test_dataset = MVSDataset(args.testpath, args.split, args.num_view, img_wh, args.numdepth)
-    TestImgLoader = DataLoader(test_dataset, args.batch_size, shuffle=False, num_workers=4, drop_last=False)
+    TestImgLoader = DataLoader(test_dataset, args.batch_size, shuffle=False, num_workers=0, drop_last=False)
 
     model = CascadeMVSNet_eval(refine=False, ndepths=[int(nd) for nd in args.ndepths.split(",") if nd],
             depth_interals_ratio=[float(d_i) for d_i in args.depth_inter_r.split(",") if d_i],
