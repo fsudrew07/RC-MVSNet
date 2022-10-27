@@ -173,7 +173,7 @@ def save_scene_depth(testlist):
     MVSDataset = find_dataset_def(args.dataset)
     test_dataset = MVSDataset(args.testpath, testlist, "test", args.num_view, args.numdepth, Interval_Scale,
                               max_h=args.max_h, max_w=args.max_w, fix_res=args.fix_res)
-    TestImgLoader = DataLoader(test_dataset, args.batch_size, shuffle=False, num_workers=1, drop_last=False)
+    TestImgLoader = DataLoader(test_dataset, args.batch_size, shuffle=False, num_workers=0, drop_last=False)
 
 
     model = CascadeMVSNet_eval(refine=False, ndepths=[int(nd) for nd in args.ndepths.split(",") if nd],
